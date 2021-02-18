@@ -20,7 +20,7 @@ let persons = [
       number: "12-43-234345"
     },
     {
-       id: 3,
+       id: 4,
        name: "Mary Poppendick",
        number: "39-23-6423122"
     }
@@ -65,24 +65,24 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 //POST
-const generateId = () => {
-  const maxId = persons.length > 0
-    ? Math.max(...persons.map(n => n.id))
-    : 0
-  return maxId + 1
-}
-
-app.post('/api/notes', (request, response) => {
+app.post('/api/persons', (request, response) => {
   const body = request.body
+  const generateId = Math.floor(Math.random() * 999)
 
-  if (!body.content) {
+  if (!body.name || !body.number) {
     return response.status(400).json({ 
       error: 'content missing' 
     })
   }
 
-  const note = {
-    id: generateId(),
+  if (persons.find(item => item.name === body.name)){
+    return response.status(409).json({ 
+      error: 'name must be unique' 
+    })
+  }
+
+  const person = {
+    id: generateId,
     name: body.name,
     number: body.number
   }
