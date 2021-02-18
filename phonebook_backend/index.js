@@ -26,9 +26,17 @@ let persons = [
     }
 ]
 
-//TITLE
+//Title
 app.get('/', (request, response) => {
   response.send('<h1>Persons</h1>')
+})
+
+//Info
+const personAmount = persons.length
+app.get('/info', (request, response) => {
+    response.send(`<p>Phonebook has info for ${personAmount} people
+    <br /><br />${new Date()}</p>
+    `)
 })
 
 //GET all
@@ -48,7 +56,6 @@ app.get('/api/persons/:id', (request, response) => {
   }
 })
 
-
 //DELETE
 app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
@@ -56,7 +63,6 @@ app.delete('/api/persons/:id', (request, response) => {
 
   response.status(204).end()
 })
-
 
 //POST
 const generateId = () => {
