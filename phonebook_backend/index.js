@@ -1,6 +1,4 @@
 const express = require('express')
-const { request } = require('http')
-const CircularJSON = require('circular-json')
 const morgan = require('morgan')
 const app = express()
 app.use(express.json())
