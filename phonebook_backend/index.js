@@ -1,7 +1,12 @@
 const express = require('express')
+const { request } = require('http')
+const CircularJSON = require('circular-json')
+const morgan = require('morgan')
 const app = express()
-
 app.use(express.json())
+
+app.use(morgan('tiny'))
+morgan.token('custom', function (req, res) { return JSON.stringify(res.body) })
 
 let persons = [
     {
@@ -65,6 +70,7 @@ app.delete('/api/persons/:id', (request, response) => {
 })
 
 //POST
+app.use(morgan('custom'))
 app.post('/api/persons', (request, response) => {
   const body = request.body
   const generateId = Math.floor(Math.random() * 999)
@@ -81,14 +87,13 @@ app.post('/api/persons', (request, response) => {
     })
   }
 
-  const person = {
+  person = {
     id: generateId,
     name: body.name,
     number: body.number
   }
-
+    
   persons = persons.concat(person)
-
   response.json(person)
 })
 

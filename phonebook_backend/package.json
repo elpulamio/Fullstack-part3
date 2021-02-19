@@ -11,7 +11,12 @@
   "author": "mp",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "circular-json": "^0.5.9",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "log": "^6.0.0",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
