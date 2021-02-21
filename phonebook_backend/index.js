@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 app.use(express.json())
+app.use(express.static('build'))
 
 const cors = require('cors')
 app.use(cors())
@@ -38,11 +39,14 @@ app.get('/', (request, response) => {
 })
 
 //Info
-const personAmount = persons.length
 app.get('/info', (request, response) => {
-    response.send(`<p>Phonebook has info for ${personAmount} people
+  //GET all (to get total amount of persons)
+  app.get('/api/persons', (request, response) => {
+    response.json(persons)
+  })
+  response.send(`<p>Phonebook has info for ${persons.length} people
     <br /><br />${new Date()}</p>
-    `)
+  `)
 })
 
 //GET all
