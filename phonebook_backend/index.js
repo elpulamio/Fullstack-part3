@@ -40,13 +40,14 @@ app.get('/', (request, response) => {
 
 //Info
 app.get('/info', (request, response) => {
+  
   //GET all (to get total amount of persons)
   app.get('/api/persons', (request, response) => {
     response.json(persons)
   })
+  
   response.send(`<p>Phonebook has info for ${persons.length} people
-    <br /><br />${new Date()}</p>
-  `)
+    <br /><br />${new Date()}</p>`)
 })
 
 //GET all
@@ -70,7 +71,6 @@ app.get('/api/persons/:id', (request, response) => {
 app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   persons = persons.filter(person => person.id !== id)
-
   response.status(204).end()
 })
 
@@ -97,7 +97,7 @@ app.post('/api/persons', (request, response) => {
     name: body.name,
     number: body.number
   }
-    
+
   persons = persons.concat(person)
   response.json(person)
 })
