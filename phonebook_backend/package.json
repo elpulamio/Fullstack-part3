@@ -8,7 +8,7 @@
     "dev": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:ui": "rm -rf build && cd ../phonebook/ && npm run build --prod && cp -r build ../phonebook_backend/",
-    "deploy": "git push heroku master",
+    "deploy": "git push heroku main",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail"
   },
@@ -22,6 +22,7 @@
     "fs": "0.0.1-security",
     "log": "^6.0.0",
     "mongoose": "^5.11.17",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
     "path": "^0.12.7"
   },

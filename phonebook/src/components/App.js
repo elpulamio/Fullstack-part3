@@ -54,7 +54,8 @@ const App = () => {
           })
           .catch(error => {
             setErrorMessage(
-              `Person '${newName}' was already removed from server`
+              //`Person '${newName}' was already removed from server`
+              `${JSON.stringify(error.response.data)}`
             )
             setTimeout(() => {
               setErrorMessage(null)
@@ -77,6 +78,14 @@ const App = () => {
           )
           setTimeout(() => {
             setOkMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setErrorMessage(
+            `${JSON.stringify(error.response.data)}`
+          )
+          setTimeout(() => {
+            setErrorMessage(null)
           }, 5000)
         })
         /* FIXME: it is possible to create multible items with the same name 
