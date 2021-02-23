@@ -4,12 +4,12 @@ const app = express()
 app.use(express.json())
 app.use(express.static('build'))
 const Person = require('./models/person')
+const process = require('process')
 
 const cors = require('cors')
 app.use(cors())
 
 const morgan = require('morgan')
-const { json } = require('express')
 app.use(morgan('tiny'))
 morgan.token('custom', function (req, res) { return JSON.stringify(res.body) })
 
@@ -42,13 +42,13 @@ app.get('/api/persons/:id', (request, response, next) => {
       response.status(404).end()
     }
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 //DELETE
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -102,7 +102,7 @@ const errorHandler = (error, request, response, next) => {
   else if (error.name === 'ValidationError') {
     return response.status(400).json({ error: error.message })
   }
-  
+
   next(error)
 }
 app.use(errorHandler)
